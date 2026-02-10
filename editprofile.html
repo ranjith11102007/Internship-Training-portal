@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .edit-container {
+      max-width: 600px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.7rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .btn-save {
+      background: #0A0A23;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: block;
+      margin: 1.5rem auto 0;
+    }
+    .btn-save:hover {
+      background: #1a1a3a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Edit Profile</h1>
+      <nav>
+        <a href="dashboard2.html">Dashboard</a>
+        <a href="profile.html">Profile</a>
+        <a href="login.html">Logout</a>
+      </nav>
+    </header>
+
+    <main class="edit-container">
+      <h2>Update Your Profile</h2>
+
+      <form id="editProfileForm">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="name" required placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" required placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label>Roll Number</label>
+          <input type="text" id="roll" required placeholder="Enter your roll number">
+        </div>
+        <div class="form-group">
+          <label>Department</label>
+          <select id="department" required>
+            <option value="CSE">Computer Science</option>
+            <option value="IT">Information Technology</option>
+            <option value="ECE">Electronics & Communication</option>
+            <option value="MECH">Mechanical</option>
+            <option value="CIVIL">Civil</option>
+            <option value="EEE">Electrical</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>CGPA</label>
+          <input type="number" id="cgpa" step="0.01" min="0" max="10"
+                 required placeholder="Enter your CGPA">
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="text" id="phone" required placeholder="Enter your phone number">
+        </div>
+
+        <div class="form-group">
+          <label>Skills (separated by commas)</label>
+          <textarea id="skills" rows="2" placeholder="HTML, CSS, JavaScript, C, Python"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Education</label>
+          <textarea id="education" rows="4" placeholder="B.Tech, Computer Science, ABC College, 2023-2027"></textarea>
+        </div>
+
+        <button type="submit" class="btn-save">Save Profile</button>
+      </form>
+    </main>
+  </div>
+
+  <script src="../js/edit-profile.js"></script>
+</body>
+</html>

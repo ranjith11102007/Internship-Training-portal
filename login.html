@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Internship Portal</title>
+  <link rel="stylesheet" href="csss.css" />
+</head>
+<body>
+  <div class="login-container">
+    <h2>Internship & Placement Portal</h2>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required />
+      </div>
+      <div class="form-group">
+        <label for="role">Role</label>
+        <select id="role" required>
+          <option value="">Select Role</option>
+          <option value="student">Student</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    <p>Don’t have an account? <a href="signup.html">Sign up</a></p>
+  </div>
+
+  <!-- Make sure this script is at the bottom -->
+  <script>
+    // Sample users (for demo)
+    const users = [
+      { email: "student@college.edu", password: "123", role: "student", name: "Rahul Kumar" },
+    ];
+
+    // Save users to localStorage (only once)
+    if (!localStorage.getItem("users")) {
+      localStorage.setItem("users", JSON.stringify(users));
+    }
+
+    // Login logic
+    document.getElementById("loginForm")?.addEventListener("submit", function(e) {
+      e.preventDefault(); // ← This stops page reload
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const role = document.getElementById("role").value;
+
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+      const user = users.find(u => u.email === email && u.password === password && u.role === role);
+
+      if (user) {
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        if (role === "student") {
+          window.location.href = "dashboard2.html";
+        }
+      } else {
+        alert("Invalid credentials or role");
+      }
+    });
+  </script>
+</body>
+</html>

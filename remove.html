@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Student Dashboard</h1>
+      <nav>
+        <a href="profile.html">Profile</a>
+        <a href="my-applications.html">My Applications</a>
+        <a href="certificate.html">Certificates</a>
+        <a href="login.html">Logout</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="welcome">
+        <h2>Welcome, <span id="studentName">Student</span>!</h2>
+        <p>Manage your internships, applications, and placement journey from one place.</p>
+      </section>
+
+      <section class="quick-actions">
+        <h3>Quick Actions</h3>
+        <div class="action-grid">
+          <a href="profile.html" class="action-card">Edit Profile</a>
+          <a href="../placement/post-internship.html" class="action-card">View Internships</a>
+          <a href="my-applications.html" class="action-card">My Applications</a>
+        </div>
+      </section>
+
+      <section class="recommended-jobs">
+        <h3>Recommended Internships</h3>
+        <div id="jobList" class="job-list">
+          <!-- Jobs will be added by JS -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/student.js"></script>
+</body>
+</html>

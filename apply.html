@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Apply for Internship</title>
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="applyform.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Student Dashboard</h1>
+      <nav>
+        <a href="dashboard2.html">Dashboard</a>
+        <a href="profile.html">Profile</a>
+        <a href="login.html">Logout</a>
+      </nav>
+    </header>
+
+    <main class="apply-container">
+      <h2>Apply for Internship</h2>
+      <form id="applyForm">
+        <div class="form-group">
+          <label>Internship Title</label>
+          <input type="text" id="title" readonly />
+        </div>
+        <div class="form-group">
+          <label>Company</label>
+          <input type="text" id="company" readonly />
+        </div>
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="studentName" readonly />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="studentEmail" readonly />
+        </div>
+        <div class="form-group">
+          <label>Department</label>
+          <input type="text" id="department" value="Computer Science" />
+        </div>
+        <div class="form-group">
+          <label>CGPA</label>
+          <input type="number" id="cgpa" step="0.01" min="0" max="10" required />
+        </div>
+        <div class="form-group">
+          <label>Cover Letter</label>
+          <textarea id="coverLetter" rows="5" placeholder="Write a short cover letter..." required></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Submit Application</button>
+      </form>
+    </main>
+  </div>
+
+  <script>
+    // Load current user
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser || currentUser.role !== "student") {
+      alert("Please login as student");
+      window.location.href = "../login.html";
+    }
+
+    // Sample internships
+    const internships = [
+      { id: 1, title: "Software Developer Intern", company: "ABC Tech" },
+      { id: 2, title: "Data Analyst Intern", company: "XYZ Analytics" },
+      { id: 3, title: "UI/UX Design Intern", company: "Design Studio" }
+    ];
+
+    // Get internship ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const internId = urlParams.get("id");
+    const intern = internships.find(i => i.id == internId);
+
+    if (!intern) {
+      alert("Invalid internship");
+      window.location.href = "dashboard.html";
+    }
+
+    // Fill form
+    document.getElementById("title").value = intern.title;
+    document.getElementById("company").value = intern.company;
+    document.getElementById("studentName").value = currentUser.name;
+    document.getElementById("studentEmail").value = currentUser.email;
+
+    // Handle form submit
+    document.getElementById("applyForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const applications = JSON.parse(localStorage.getItem("applications")) || [];
+      const newApp = {
+        id: Date.now(),
+        title: intern.title,
+        company: intern.company,
+        studentName: currentUser.name,
+        studentEmail: currentUser.email,
+        department: document.getElementById("department").value,
+        cgpa: document.getElementById("cgpa").value,
+        coverLetter: document.getElementById("coverLetter").value,
+        appliedAt: new Date().toLocaleString(),
+        status: "Applied"
+      };
+
+      applications.push(newApp);
+      localStorage.setItem("applications", JSON.stringify(applications));
+
+      alert("Application submitted successfully!");
+      window.location.href = "applications.html";
+    });
+  </script>
+</body>
+</html>

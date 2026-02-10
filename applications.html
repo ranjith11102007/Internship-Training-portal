@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Applications</title>
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Student Dashboard</h1>
+      <nav>
+        <a href="dashboard2.html">Dashboard</a>
+        <a href="profile.html">Profile</a>
+        <a href="login.html">Logout</a>
+      </nav>
+    </header>
+
+    <main class="dashboard-container">
+      <h2 class="section-title">My Applications</h2>
+
+      <div id="applicationsList">
+        <p>No applications yet. Go to dashboard and apply for internships.</p>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Load current user
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser || currentUser.role !== "student") {
+      alert("Please login as student");
+      window.location.href = "login.html";
+    }
+
+    // Load applications
+    const applications = JSON.parse(localStorage.getItem("applications")) || [];
+    const list = document.getElementById("applicationsList");
+
+    if (applications.length === 0) {
+      list.innerHTML = "<p>No applications yet. Go to dashboard and apply for internships.</p>";
+    } else {
+      list.innerHTML = "";
+      applications.forEach(app => {
+        const card = document.createElement("div");
+        card.className = "internship-card";
+        card.innerHTML = `
+          <div class="internship-header">
+            <h3 class="internship-title">${app.title}</h3>
+            <p class="internship-company">${app.company}</p>
+          </div>
+          <div class="internship-body">
+            <p class="internship-detail"><strong>Applied on:</strong> ${app.appliedAt}</p>
+            <p class="internship-detail"><strong>Status:</strong> <span style="color: #0077b6">${app.status}</span></p>
+            <p class="internship-detail"><strong>CGPA:</strong> ${app.cgpa}</p>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+    }
+  </script>
+</body>
+</html>

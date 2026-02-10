@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Profile</title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/profile.css" />
+  <link rel="stylesheet" href="editprofile.html" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Student Dashboard</h1>
+      <nav>
+        <a href="dashboard2.html">Dashboard</a>
+        <a href="profile.html" class="active">Profile</a>
+        <a href="login.html">Logout</a>
+      </nav>
+    </header>
+
+    <main class="profile-container">
+      <!-- Profile Header -->
+      <div class="profile-header">
+        <img src="https://via.placeholder.com/150" alt="Profile" class="profile-img" id="profileImg">
+        <h1 class="profile-name" id="profileName">Rahul Kumar</h1>
+        <p class="profile-title" id="profileTitle">Computer Science Student</p>
+      </div>
+
+      <!-- Basic Info -->
+      <div class="profile-info">
+        <div class="info-row">
+          <div class="info-label">Email</div>
+          <div id="profileEmail">rahul@college.edu</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Roll No</div>
+          <div id="profileRoll">CS2023001</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Department</div>
+          <div id="profileDept">Computer Science</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">CGPA</div>
+          <div id="profileCgpa">8.7</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Phone</div>
+          <div id="profilePhone">+91 9876543210</div>
+        </div>
+      </div>
+
+      <!-- Skills Section -->
+      <div class="profile-section">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-list" id="skillsList">
+          <!-- Skills will be added by JS -->
+        </div>
+      </div>
+
+      <!-- Education Section -->
+      <div class="profile-section">
+        <h2 class="section-title">Education</h2>
+        <div id="educationList">
+          <!-- Education will be added by JS -->
+        </div>
+      </div>
+
+      <!-- Experience Section -->
+      <div class="profile-section">
+        <h2 class="section-title">Experience</h2>
+        <div id="experienceList">
+          <!-- Experience will be added by JS -->
+        </div>
+      </div>
+
+      <!-- Edit Button -->
+      <div class="profile-section" style="text-align: center;">
+        <button class="btn-edit" onclick="alert('Edit profile form will open here')">Edit Profile</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Load current user
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser || currentUser.role !== "student") {
+      alert("Please login as student");
+      window.location.href = "login.html";
+    }
+
+    // Sample profile data (in real app, load from localStorage)
+    const profileData = {
+      name: currentUser.name,
+      email: currentUser.email,
+      roll: "CS2023001",
+      department: "Computer Science",
+      cgpa: "8.7",
+      phone: "+91 9876543210",
+      title: "Computer Science Student",
+      skills: ["HTML", "CSS", "JavaScript", "C Programming", "Python", "Git"],
+      education: [
+        { degree: "B.Tech", branch: "Computer Science", college: "ABC College of Engineering", year: "2023 - 2027" },
+        { degree: "12th", branch: "Science", college: "XYZ School", year: "2023" }
+      ],
+      experience: [
+        { title: "Web Development Intern", company: "Tech Solutions Pvt. Ltd.", duration: "Jun 2025 - Aug 2025", desc: "Built responsive websites using HTML, CSS, JavaScript." },
+        { title: "Open Source Contributor", company: "GitHub", duration: "2024 - Present", desc: "Contributed to open-source projects and learned Git workflows." }
+      ]
+    };
+
+    // Fill profile fields
+    document.getElementById("profileName").textContent = profileData.name;
+    document.getElementById("profileEmail").textContent = profileData.email;
+    document.getElementById("profileRoll").textContent = profileData.roll;
+    document.getElementById("profileDept").textContent = profileData.department;
+    document.getElementById("profileCgpa").textContent = profileData.cgpa;
+    document.getElementById("profilePhone").textContent = profileData.phone;
+    document.getElementById("profileTitle").textContent = profileData.title;
+
+    // Fill skills
+    const skillsList = document.getElementById("skillsList");
+    profileData.skills.forEach(skill => {
+      const tag = document.createElement("span");
+      tag.className = "skill-tag";
+      tag.textContent = skill;
+      skillsList.appendChild(tag);
+    });
+
+    // Fill education
+    const educationList = document.getElementById("educationList");
+    profileData.education.forEach(edu => {
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <strong>${edu.degree} in ${edu.branch}</strong><br>
+        ${edu.college}<br>
+        <small>${edu.year}</small><br><br>
+      `;
+      educationList.appendChild(div);
+    });
+
+    // Fill experience
+    const experienceList = document.getElementById("experienceList");
+    profileData.experience.forEach(exp => {
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <strong>${exp.title}</strong> at ${exp.company}<br>
+        <small>${exp.duration}</small><br>
+        <p style="margin: 5px 0;">${exp.desc}</p>
+      `;
+      experienceList.appendChild(div);
+    });
+  </script>
+</body>
+</html>
